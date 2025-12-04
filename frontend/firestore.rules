@@ -1,0 +1,22 @@
+rules_version = '2';
+
+// Allow read/write access to all users for development
+// In production, you should implement proper authentication rules
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow anyone to read/write to the resources collection
+    match /resources/{document} {
+      allow read, write: if true;
+    }
+    
+    // Allow anyone to read/write to the gradeCategories collection
+    match /gradeCategories/{document} {
+      allow read, write: if true;
+    }
+    
+    // Allow anyone to read/write to any collection (for development only)
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

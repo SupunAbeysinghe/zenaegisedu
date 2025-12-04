@@ -1,0 +1,13 @@
+{
+  "name": "zenaegisedu",
+  "version": "1.0.0",
+  "description": "Educational platform",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && yarn install --legacy-peer-deps && yarn build",
+    "vercel-build": "cd frontend && yarn install --legacy-peer-deps && yarn build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
