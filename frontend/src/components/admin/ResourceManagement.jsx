@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { updateResource } from '../../services/firestore'; // Add this import
 
-const ResourceManagement = ({ resources, subGrades, formData, setFormData, loading, handleSubmit, handleDelete, handleInputChange }) => {
+const ResourceManagement = ({ resources, subGrades, streams, formData, setFormData, loading, handleSubmit, handleDelete, handleInputChange }) => {
   // Predefined content types
   const contentTypes = [
     'Notes',
@@ -106,7 +106,28 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
   };
 
   // Get sub-grades for a specific grade
+  // For A/L and University grades, we need to get sub-grades from their streams
   const getSubGradesForGrade = (gradeId) => {
+    // Add null checks to prevent errors
+    if (!subGrades || !Array.isArray(subGrades)) return [];
+    
+    // For A/L and University grades, get sub-grades from streams
+    if (gradeId === 'al' || gradeId === 'university') {
+      // Add null checks for streams
+      if (!streams || !Array.isArray(streams)) return [];
+      
+      // Get streams for this grade
+      const gradeStreams = streams.filter(stream => stream.gradeId === gradeId);
+      // Get sub-grades that belong to these streams
+      const streamSubGrades = [];
+      gradeStreams.forEach(stream => {
+        const subGradesForStream = subGrades.filter(sg => sg.gradeId === stream.id);
+        streamSubGrades.push(...subGradesForStream);
+      });
+      return streamSubGrades;
+    }
+    
+    // For other grades, get sub-grades directly assigned to the grade
     return subGrades.filter(sg => sg.gradeId === gradeId);
   };
 

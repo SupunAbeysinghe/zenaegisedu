@@ -53,10 +53,10 @@ const AdminStats = ({ resources, gradeCategories }) => {
   const COLORS = ['#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#EF4444'];
 
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white">Statistics Overview</h1>
-        <p className="mt-2 text-gray-300">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Statistics Overview</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
           Monitor platform usage and resource distribution
         </p>
       </div>

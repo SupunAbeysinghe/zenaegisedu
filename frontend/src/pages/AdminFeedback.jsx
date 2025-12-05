@@ -156,15 +156,24 @@ const AdminFeedback = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
-      {/* Header */}
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">User Feedback</h1>
-            <p className="mt-1 text-gray-600 dark:text-gray-300">
-              Manage feedback and reports from users
-            </p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">User Feedback</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Manage feedback and reports from users
+        </p>
+      </div>
+      
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        {/* Header */}
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Feedback Management</h2>
+              <p className="mt-1 text-gray-600 dark:text-gray-300">
+                Review and respond to user feedback
+              </p>
+            </div>
           </div>
           
           {/* Filter Buttons */}

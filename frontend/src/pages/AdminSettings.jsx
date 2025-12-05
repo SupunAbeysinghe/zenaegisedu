@@ -29,8 +29,8 @@ const AdminSettings = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Settings</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
           Configure site-wide settings and preferences
         </p>
       </div>
@@ -53,7 +53,7 @@ const AdminSettings = () => {
                   placeholder="Site Name"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Contact Email
@@ -67,7 +67,7 @@ const AdminSettings = () => {
                 />
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -80,7 +80,7 @@ const AdminSettings = () => {
                   placeholder="Max File Size"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Allowed File Types
@@ -93,10 +93,10 @@ const AdminSettings = () => {
                 />
               </div>
             </div>
-            
+
             <div className="flex justify-end">
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="bg-emerald-500 hover:bg-emerald-600"
               >
                 Save Settings
@@ -119,7 +119,7 @@ const AdminSettings = () => {
               </div>
               <Button variant="outline">Manage</Button>
             </div>
-            
+
             <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
               <div>
                 <h3 className="font-medium text-gray-900">User Roles</h3>
@@ -141,12 +141,12 @@ const AdminSettings = () => {
               <h3 className="font-medium text-gray-900">Version</h3>
               <p className="text-2xl font-bold text-emerald-600">1.0.0</p>
             </div>
-            
+
             <div className="p-4 bg-gray-50 rounded-lg">
               <h3 className="font-medium text-gray-900">Last Updated</h3>
               <p className="text-lg font-medium text-gray-900">December 4, 2025</p>
             </div>
-            
+
             <div className="p-4 bg-gray-50 rounded-lg">
               <h3 className="font-medium text-gray-900">Status</h3>
               <p className="text-lg font-medium text-green-600">Operational</p>

@@ -121,8 +121,8 @@ const AdminSidebar = ({ onLogout }) => {
                     to={item.href}
                     aria-current={isActive ? 'page' : undefined}
                     className={`flex items-start px-3 py-2.5 text-sm rounded-lg transition-all duration-200 ${isActive
-                        ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50 shadow-sm'
-                        : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
+                      ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50 shadow-sm'
+                      : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
                       }`}
                   >
                     <Icon className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />

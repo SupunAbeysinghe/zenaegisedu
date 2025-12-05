@@ -246,6 +246,7 @@ const AdminDashboard = () => {
             <ResourceManagement
               resources={resources}
               subGrades={subGrades}
+              streams={streams}
               formData={formData}
               setFormData={setFormData}
               loading={loading}
@@ -271,6 +272,7 @@ const AdminDashboard = () => {
           <AdminResources
             resources={resources}
             subGrades={subGrades}
+            streams={streams}
             formData={formData}
             setFormData={setFormData}
             loading={loading}

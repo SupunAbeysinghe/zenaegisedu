@@ -7,8 +7,8 @@ const AdminGradeImages = ({ gradeCategories, gradeImages, handleGradeImageChange
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Grade Box Images</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Grade Box Images</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
           Customize the images displayed for each grade category
         </p>
       </div>
@@ -23,9 +23,9 @@ const AdminGradeImages = ({ gradeCategories, gradeImages, handleGradeImageChange
               <div key={category.id} className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                 <h3 className="font-semibold text-lg mb-2">{category.title}</h3>
                 <div className="mb-3">
-                  <img 
-                    src={gradeImages[category.id] || category.image} 
-                    alt={category.title} 
+                  <img
+                    src={gradeImages[category.id] || category.image}
+                    alt={category.title}
                     className="w-full h-40 object-cover rounded"
                     onError={(e) => {
                       e.target.src = 'https://via.placeholder.com/300x150?text=Invalid+Image';
@@ -39,7 +39,7 @@ const AdminGradeImages = ({ gradeCategories, gradeImages, handleGradeImageChange
                     placeholder="Enter Google image link"
                     className="w-full"
                   />
-                  <Button 
+                  <Button
                     onClick={() => handleSaveGradeImage(category.id)}
                     className="w-full bg-emerald-500 hover:bg-emerald-600"
                     disabled={loading}
@@ -68,7 +68,7 @@ const AdminGradeImages = ({ gradeCategories, gradeImages, handleGradeImageChange
               <li>Click "Save Image" to apply the change</li>
             </ol>
             <p className="mt-4">
-              <strong>Note:</strong> Make sure the image links you use are publicly accessible, 
+              <strong>Note:</strong> Make sure the image links you use are publicly accessible,
               otherwise they won't display correctly on the website.
             </p>
           </div>
