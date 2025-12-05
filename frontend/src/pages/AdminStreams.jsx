@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { getSubGrades, addSubGrade, updateSubGrade, deleteSubGrade } from '../services/firestore';
+import { getStreams, addStream, updateStream, deleteStream } from '../services/firestore';
 import { useAuth } from '../contexts/AuthContext';
-import SubGradeManagement from '../components/admin/SubGradeManagement';
+import StreamManagement from '../components/admin/StreamManagement';
 
-const AdminSubGrades = ({ gradeCategories, streams }) => {
+const AdminStreams = ({ gradeCategories }) => {
   const { currentUser } = useAuth();
-  const [subGrades, setSubGrades] = useState([]);
+  const [streams, setStreams] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchSubGrades = async () => {
+  const fetchStreams = async () => {
     try {
-      const result = await getSubGrades();
+      const result = await getStreams();
       if (result.success) {
-        setSubGrades(result.data);
+        setStreams(result.data);
       } else {
         throw new Error(result.error);
       }
     } catch (err) {
-      console.error('Error fetching sub grades:', err);
+      console.error('Error fetching streams:', err);
       setError(err.message);
     }
   };
 
   useEffect(() => {
     if (!currentUser) return;
-    fetchSubGrades();
+    fetchStreams();
   }, [currentUser]);
 
-  const handleAddSubGrade = async (data) => {
+  const handleAddStream = async (data) => {
     setLoading(true);
     setError(null);
     try {
-      const result = await addSubGrade(data);
+      const result = await addStream(data);
       if (!result.success) {
         throw new Error(result.error);
       }
-      await fetchSubGrades();
+      await fetchStreams();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -44,15 +44,15 @@ const AdminSubGrades = ({ gradeCategories, streams }) => {
     }
   };
 
-  const handleUpdateSubGrade = async (id, updateData) => {
+  const handleUpdateStream = async (id, updateData) => {
     setLoading(true);
     setError(null);
     try {
-      const result = await updateSubGrade(id, updateData);
+      const result = await updateStream(id, updateData);
       if (!result.success) {
         throw new Error(result.error);
       }
-      await fetchSubGrades();
+      await fetchStreams();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -60,16 +60,16 @@ const AdminSubGrades = ({ gradeCategories, streams }) => {
     }
   };
 
-  const handleDeleteSubGrade = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this sub grade?')) return;
+  const handleDeleteStream = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this stream? This will also delete all sub-grades and resources associated with this stream.')) return;
     setLoading(true);
     setError(null);
     try {
-      const result = await deleteSubGrade(id);
+      const result = await deleteStream(id);
       if (!result.success) {
         throw new Error(result.error);
       }
-      await fetchSubGrades();
+      await fetchStreams();
     } catch (err) {
       setError(err.message);
     } finally {
@@ -85,19 +85,16 @@ const AdminSubGrades = ({ gradeCategories, streams }) => {
         </div>
       )}
 
-      <SubGradeManagement
+      <StreamManagement
         gradeCategories={gradeCategories}
         streams={streams}
-        subGrades={subGrades}
-        onAddSubGrade={handleAddSubGrade}
-        onUpdateSubGrade={handleUpdateSubGrade}
-        onDeleteSubGrade={handleDeleteSubGrade}
+        onAddStream={handleAddStream}
+        onUpdateStream={handleUpdateStream}
+        onDeleteStream={handleDeleteStream}
         loading={loading}
       />
     </div>
   );
 };
 
-export default AdminSubGrades;
-
-
+export default AdminStreams;

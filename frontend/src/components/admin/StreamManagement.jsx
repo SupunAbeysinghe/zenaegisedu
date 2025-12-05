@@ -3,20 +3,19 @@ import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
-import { Select } from '../ui/select';
 
-const SubGradeManagement = ({
+const StreamManagement = ({
   gradeCategories,
   streams,
-  subGrades,
-  onAddSubGrade,
-  onUpdateSubGrade,
-  onDeleteSubGrade,
+  onAddStream,
+  onUpdateStream,
+  onDeleteStream,
   loading,
 }) => {
   const [formData, setFormData] = useState({
     name: '',
     gradeId: '',
+    description: '',
     image: '',
     order: 0,
   });
@@ -24,34 +23,35 @@ const SubGradeManagement = ({
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
 
-  const subGradesByGrade = useMemo(() => {
+  const streamsByGrade = useMemo(() => {
     const grouped = {};
-    subGrades.forEach((sg) => {
-      if (!grouped[sg.gradeId]) grouped[sg.gradeId] = [];
-      grouped[sg.gradeId].push(sg);
+    streams.forEach((stream) => {
+      if (!grouped[stream.gradeId]) grouped[stream.gradeId] = [];
+      grouped[stream.gradeId].push(stream);
     });
     return grouped;
-  }, [subGrades]);
+  }, [streams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.gradeId) return;
-    await onAddSubGrade(formData);
-    setFormData({ name: '', gradeId: '', image: '' });
+    await onAddStream(formData);
+    setFormData({ name: '', gradeId: '', description: '', image: '', order: 0 });
   };
 
-  const startEdit = (subGrade) => {
-    setEditingId(subGrade.id);
+  const startEdit = (stream) => {
+    setEditingId(stream.id);
     setEditData({
-      name: subGrade.name,
-      gradeId: subGrade.gradeId,
-      image: subGrade.image || '',
-      order: typeof subGrade.order === 'number' ? subGrade.order : 0,
+      name: stream.name,
+      gradeId: stream.gradeId,
+      description: stream.description || '',
+      image: stream.image || '',
+      order: typeof stream.order === 'number' ? stream.order : 0,
     });
   };
 
   const saveEdit = async (id) => {
-    await onUpdateSubGrade(id, editData);
+    await onUpdateStream(id, editData);
     setEditingId(null);
     setEditData({});
   };
@@ -64,16 +64,16 @@ const SubGradeManagement = ({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Sub Grade Management</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Stream Management</h1>
         <p className="mt-2 text-gray-600 dark:text-gray-300">
-          Create and manage sub grades under each main grade, including display images.
+          Create and manage streams for A/L and University grades.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-1">
           <CardHeader>
-            <CardTitle>Add New Sub Grade</CardTitle>
+            <CardTitle>Add New Stream</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -84,14 +84,14 @@ const SubGradeManagement = ({
                 <Input
                   value={formData.name}
                   onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                  placeholder="e.g. Grade 3"
+                  placeholder="e.g. Science Stream"
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Parent Grade / Stream
+                  Parent Grade
                 </label>
                 <select
                   value={formData.gradeId}
@@ -101,35 +101,24 @@ const SubGradeManagement = ({
                   required
                   className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
-                  <option value="">Select grade or stream</option>
-                  {/* For all grades, show both direct assignment and streams if they exist */}
-                  {gradeCategories
-                    .map((g) => {
-                      // Check if this grade has any streams
-                      const gradeStreams = (streams || []).filter(s => s.gradeId === g.id);
-                      
-                      // If grade has streams, show both direct and stream options
-                      if (gradeStreams.length > 0) {
-                        return [
-                          <optgroup key={`grade-${g.id}`} label={g.title}>
-                            <option value={g.id}>{g.title} (Direct)</option>
-                          </optgroup>,
-                          ...gradeStreams.map((s) => (
-                            <option key={s.id} value={s.id}>
-                              └─ {s.name} (Stream)
-                            </option>
-                          ))
-                        ];
-                      } else {
-                        // If no streams, just show direct assignment
-                        return (
-                          <option key={g.id} value={g.id}>
-                            {g.title}
-                          </option>
-                        );
-                      }
-                    })}
+                  <option value="">Select grade</option>
+                  {gradeCategories.map((g) => (
+                    <option key={g.id} value={g.id}>
+                      {g.title}
+                    </option>
+                  ))}
                 </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Description
+                </label>
+                <Input
+                  value={formData.description}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
+                  placeholder="Stream description"
+                />
               </div>
 
               <div>
@@ -139,7 +128,7 @@ const SubGradeManagement = ({
                 <Input
                   value={formData.image}
                   onChange={(e) => setFormData((prev) => ({ ...prev, image: e.target.value }))}
-                  placeholder="Optional image link for sub grade card"
+                  placeholder="https://example.com/image.jpg"
                 />
               </div>
 
@@ -152,18 +141,16 @@ const SubGradeManagement = ({
                   min="0"
                   value={formData.order}
                   onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, order: Number(e.target.value) || 0 }))
+                    setFormData((prev) => ({
+                      ...prev,
+                      order: Number(e.target.value) || 0,
+                    }))
                   }
-                  placeholder="e.g. 1, 2, 3..."
                 />
               </div>
 
-              <Button
-                type="submit"
-                className="w-full bg-emerald-500 hover:bg-emerald-600"
-                disabled={loading}
-              >
-                {loading ? 'Saving...' : 'Add Sub Grade'}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Adding...' : 'Add Stream'}
               </Button>
             </form>
           </CardContent>
@@ -171,14 +158,15 @@ const SubGradeManagement = ({
 
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Existing Sub Grades</CardTitle>
+            <CardTitle>Existing Streams</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Sub Grade</TableHead>
+                    <TableHead>Stream</TableHead>
+                    <TableHead>Description</TableHead>
                     <TableHead>Parent Grade</TableHead>
                     <TableHead>Order</TableHead>
                     <TableHead>Image</TableHead>
@@ -186,12 +174,12 @@ const SubGradeManagement = ({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {subGrades.map((subGrade) => {
-                    const parentGrade = gradeCategories.find((g) => g.id === subGrade.gradeId);
-                    const isEditing = editingId === subGrade.id;
+                  {streams.map((stream) => {
+                    const parentGrade = gradeCategories.find((g) => g.id === stream.gradeId);
+                    const isEditing = editingId === stream.id;
 
                     return (
-                      <TableRow key={subGrade.id}>
+                      <TableRow key={stream.id}>
                         {isEditing ? (
                           <>
                             <TableCell>
@@ -203,6 +191,14 @@ const SubGradeManagement = ({
                               />
                             </TableCell>
                             <TableCell>
+                              <Input
+                                value={editData.description}
+                                onChange={(e) =>
+                                  setEditData((prev) => ({ ...prev, description: e.target.value }))
+                                }
+                              />
+                            </TableCell>
+                            <TableCell>
                               <select
                                 value={editData.gradeId}
                                 onChange={(e) =>
@@ -210,34 +206,11 @@ const SubGradeManagement = ({
                                 }
                                 className="w-full rounded-md border border-gray-300 px-2 py-1"
                               >
-                                <option value="">Select grade or stream</option>
-                                {/* For all grades, show both direct assignment and streams if they exist */}
-                                {gradeCategories
-                                  .map((g) => {
-                                    // Check if this grade has any streams
-                                    const gradeStreams = (streams || []).filter(s => s.gradeId === g.id);
-                                    
-                                    // If grade has streams, show both direct and stream options
-                                    if (gradeStreams.length > 0) {
-                                      return [
-                                        <optgroup key={`grade-${g.id}`} label={g.title}>
-                                          <option value={g.id}>{g.title} (Direct)</option>
-                                        </optgroup>,
-                                        ...gradeStreams.map((s) => (
-                                          <option key={s.id} value={s.id}>
-                                            └─ {s.name} (Stream)
-                                          </option>
-                                        ))
-                                      ];
-                                    } else {
-                                      // If no streams, just show direct assignment
-                                      return (
-                                        <option key={g.id} value={g.id}>
-                                          {g.title}
-                                        </option>
-                                      );
-                                    }
-                                  })}
+                                {gradeCategories.map((g) => (
+                                    <option key={g.id} value={g.id}>
+                                      {g.title}
+                                    </option>
+                                  ))}
                               </select>
                             </TableCell>
                             <TableCell>
@@ -253,7 +226,7 @@ const SubGradeManagement = ({
                                 }
                               />
                             </TableCell>
-                            <TableCell className="max-w-xs">
+                            <TableCell>
                               <Input
                                 value={editData.image}
                                 onChange={(e) =>
@@ -264,9 +237,10 @@ const SubGradeManagement = ({
                             </TableCell>
                             <TableCell>
                               <Button
+                                variant="outline"
                                 size="sm"
-                                className="mr-2 bg-emerald-500 hover:bg-emerald-600"
-                                onClick={() => saveEdit(subGrade.id)}
+                                className="mr-2"
+                                onClick={() => saveEdit(stream.id)}
                                 disabled={loading}
                               >
                                 Save
@@ -283,19 +257,16 @@ const SubGradeManagement = ({
                           </>
                         ) : (
                           <>
-                            <TableCell className="font-medium">{subGrade.name}</TableCell>
-                            <TableCell>
-                                                          {(streams?.find(s => s.id === subGrade.gradeId)?.name) || 
-                                                           (gradeCategories?.find(g => g.id === subGrade.gradeId)?.title) || 
-                                                           subGrade.gradeId}
-                                                        </TableCell>
-                            <TableCell>{typeof subGrade.order === 'number' ? subGrade.order : '-'}</TableCell>
+                            <TableCell className="font-medium">{stream.name}</TableCell>
+                            <TableCell>{stream.description || '-'}</TableCell>
+                            <TableCell>{parentGrade?.title || stream.gradeId}</TableCell>
+                            <TableCell>{typeof stream.order === 'number' ? stream.order : '-'}</TableCell>
                             <TableCell className="max-w-xs">
-                              {subGrade.image ? (
+                              {stream.image ? (
                                 <div className="flex items-center gap-3">
                                   <img
-                                    src={subGrade.image}
-                                    alt={subGrade.name}
+                                    src={stream.image}
+                                    alt={stream.name}
                                     className="w-16 h-10 object-cover rounded"
                                     onError={(e) => {
                                       e.target.src =
@@ -303,7 +274,7 @@ const SubGradeManagement = ({
                                     }}
                                   />
                                   <span className="truncate text-xs text-gray-500">
-                                    {subGrade.image}
+                                    {stream.image}
                                   </span>
                                 </div>
                               ) : (
@@ -315,14 +286,14 @@ const SubGradeManagement = ({
                                 variant="outline"
                                 size="sm"
                                 className="mr-2"
-                                onClick={() => startEdit(subGrade)}
+                                onClick={() => startEdit(stream)}
                               >
                                 Edit
                               </Button>
                               <Button
                                 variant="destructive"
                                 size="sm"
-                                onClick={() => onDeleteSubGrade(subGrade.id)}
+                                onClick={() => onDeleteStream(stream.id)}
                               >
                                 Delete
                               </Button>
@@ -332,10 +303,10 @@ const SubGradeManagement = ({
                       </TableRow>
                     );
                   })}
-                  {subGrades.length === 0 && (
+                  {streams.length === 0 && (
                     <TableRow>
-                      <TableCell colSpan={4} className="text-center text-gray-500 py-6">
-                        No sub grades yet. Add your first sub grade on the left.
+                      <TableCell colSpan={6} className="text-center text-gray-500 py-6">
+                        No streams yet. Add your first stream on the left.
                       </TableCell>
                     </TableRow>
                   )}
@@ -349,6 +320,4 @@ const SubGradeManagement = ({
   );
 };
 
-export default SubGradeManagement;
-
-
+export default StreamManagement;

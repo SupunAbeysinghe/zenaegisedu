@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  FileText, 
-  Image, 
-  BarChart3, 
+import {
+  LayoutDashboard,
+  FileText,
+  Image,
+  BarChart3,
   Settings,
   LogOut,
   Layers,
@@ -48,6 +48,12 @@ const AdminSidebar = ({ onLogout }) => {
           href: '/admin/sub-grades',
           icon: Layers,
         },
+        {
+          name: 'Streams',
+          description: 'Manage A/L and University streams',
+          href: '/admin/streams',
+          icon: Layers,
+        },
       ],
     },
     {
@@ -70,7 +76,7 @@ const AdminSidebar = ({ onLogout }) => {
           href: '/admin/statistics',
           icon: BarChart3,
         },
-        
+
       ],
     },
   ];
@@ -94,7 +100,7 @@ const AdminSidebar = ({ onLogout }) => {
           Manage resources, grades, and settings for ZenAegis Edu.
         </p>
       </div>
-      
+
       <nav className="flex-1 px-3 py-4 space-y-4 overflow-y-auto">
         {navigationGroups.map((group) => (
           <div key={group.label}>
@@ -114,11 +120,10 @@ const AdminSidebar = ({ onLogout }) => {
                     key={item.name}
                     to={item.href}
                     aria-current={isActive ? 'page' : undefined}
-                    className={`flex items-start px-3 py-2.5 text-sm rounded-lg transition-all duration-200 ${
-                      isActive
+                    className={`flex items-start px-3 py-2.5 text-sm rounded-lg transition-all duration-200 ${isActive
                         ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50 shadow-sm'
                         : 'text-gray-300 hover:bg-gray-700/40 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <Icon className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" />
                     <div className="flex flex-col">
@@ -136,11 +141,11 @@ const AdminSidebar = ({ onLogout }) => {
           </div>
         ))}
       </nav>
-      
+
       <div className="p-4 border-t border-gray-700/50">
-        <Button 
+        <Button
           onClick={onLogout}
-          variant="outline" 
+          variant="outline"
           className="w-full flex items-center justify-center bg-red-900/30 hover:bg-red-800/40 text-red-300 border-red-700/50 hover:border-red-600/50 transition-colors"
         >
           <LogOut className="w-4 h-4 mr-2" />

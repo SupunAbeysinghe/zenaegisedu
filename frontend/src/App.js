@@ -13,11 +13,19 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route 
               path="/grade/:gradeId" 
+              element={
+                <ProtectedRoute>
+                  <GradePage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/grade/:gradeId/stream/:streamId" 
               element={
                 <ProtectedRoute>
                   <GradePage />
@@ -76,6 +84,14 @@ function App() {
             />
             <Route 
               path="/admin/settings" 
+              element={
+                <ProtectedRoute requireAdmin>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/streams" 
               element={
                 <ProtectedRoute requireAdmin>
                   <AdminDashboard />
