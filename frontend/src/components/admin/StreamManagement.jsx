@@ -161,7 +161,7 @@ const StreamManagement = ({
             <CardTitle>Existing Streams</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto max-h-96 overflow-y-auto">
               <Table>
                 <TableHeader>
                   <TableRow>

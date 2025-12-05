@@ -113,14 +113,14 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Add Resource Form */}
-      <Card className="bg-white dark:bg-gray-800">
+      <Card className="bg-white border border-gray-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">Add New Resource</CardTitle>
+          <CardTitle className="text-gray-900">Add New Resource</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Title
               </label>
               <Input
@@ -129,20 +129,20 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                 onChange={handleInputChange}
                 placeholder="Resource title"
                 required
-                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="bg-white text-gray-900 border-gray-300"
               />
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Subject
                 </label>
                 <div className="flex gap-2">
                   <select
                     value={formData.subject}
                     onChange={handleSubjectChange}
-                    className="flex-1 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="flex-1 rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     required
                   >
                     <option value="">Select a subject</option>
@@ -156,7 +156,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                     value={newSubject}
                     onChange={(e) => setNewSubject(e.target.value)}
                     placeholder="Add new subject"
-                    className="flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="flex-1 bg-white text-gray-900 border-gray-300"
                   />
                   <Button 
                     type="button" 
@@ -169,13 +169,13 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Type
                 </label>
                 <select
                   value={formData.type}
                   onChange={handleTypeChange}
-                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   required
                 >
                   <option value="">Select a type</option>
@@ -187,14 +187,14 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Grade Category
               </label>
               <select
                 name="gradeId"
                 value={formData.gradeId}
                 onChange={handleInputChange}
-                className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 required
               >
                 <option value="">Select a grade</option>
@@ -209,14 +209,14 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
             {/* Sub-grade selection - only show when a grade is selected */}
             {formData.gradeId && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Sub Grade (Optional)
                 </label>
                 <select
                   name="subGrade"
                   value={formData.subGrade || ''}
                   onChange={handleInputChange}
-                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="">Select a sub grade (optional)</option>
                   {getSubGradesForGrade(formData.gradeId).map((subGrade) => (
@@ -229,7 +229,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
             )}
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Google Drive Link
               </label>
               <Input
@@ -238,7 +238,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                 onChange={handleInputChange}
                 placeholder="https://drive.google.com/..."
                 required
-                className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="bg-white text-gray-900 border-gray-300"
               />
             </div>
             
@@ -254,19 +254,19 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
       </Card>
 
       {/* Resources List */}
-      <Card className="bg-white dark:bg-gray-800">
+      <Card className="bg-white border border-gray-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">Existing Resources</CardTitle>
+          <CardTitle className="text-gray-900">Existing Resources</CardTitle>
         </CardHeader>
         <CardContent>
           {/* Filter Controls */}
           <div className="mb-4 flex flex-wrap gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filter by Grade</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Grade</label>
               <select
                 value={filterGrade}
                 onChange={(e) => setFilterGrade(e.target.value)}
-                className="rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">All Grades</option>
                 <option value="1-5">Primary (Grades 1-5)</option>
@@ -278,11 +278,11 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filter by Subject</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Subject</label>
               <select
                 value={filterSubject}
                 onChange={(e) => setFilterSubject(e.target.value)}
-                className="rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 <option value="">All Subjects</option>
                 {availableSubjects.map((subject, index) => (
@@ -299,7 +299,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                     setFilterSubject('');
                   }}
                   variant="outline"
-                  className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  className="border-gray-300 text-gray-700 hover:bg-gray-100"
                 >
                   Clear Filters
                 </Button>
@@ -307,21 +307,21 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
             )}
           </div>
           
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto max-h-96 overflow-y-auto">
             <Table>
               <TableHeader>
-                <TableRow className="bg-gray-100 dark:bg-gray-700">
-                  <TableHead className="text-gray-900 dark:text-white">Title</TableHead>
-                  <TableHead className="text-gray-900 dark:text-white">Subject</TableHead>
-                  <TableHead className="text-gray-900 dark:text-white">Type</TableHead>
-                  <TableHead className="text-gray-900 dark:text-white">Grade</TableHead>
-                  <TableHead className="text-gray-900 dark:text-white">Sub Grade</TableHead>
-                  <TableHead className="text-gray-900 dark:text-white">Actions</TableHead>
+                <TableRow className="bg-gray-50">
+                  <TableHead className="text-gray-900">Title</TableHead>
+                  <TableHead className="text-gray-900">Subject</TableHead>
+                  <TableHead className="text-gray-900">Type</TableHead>
+                  <TableHead className="text-gray-900">Grade</TableHead>
+                  <TableHead className="text-gray-900">Sub Grade</TableHead>
+                  <TableHead className="text-gray-900">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredResources.map((resource) => (
-                  <TableRow key={resource.id} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <TableRow key={resource.id} className="bg-white hover:bg-gray-50">
                     {editingId === resource.id ? (
                       // Edit mode
                       <>
@@ -329,21 +329,21 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                           <Input
                             value={editFormData.title}
                             onChange={(e) => setEditFormData(prev => ({ ...prev, title: e.target.value }))}
-                            className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full bg-white text-gray-900 border-gray-300"
                           />
                         </TableCell>
                         <TableCell>
                           <Input
                             value={editFormData.subject}
                             onChange={(e) => setEditFormData(prev => ({ ...prev, subject: e.target.value }))}
-                            className="w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full bg-white text-gray-900 border-gray-300"
                           />
                         </TableCell>
                         <TableCell>
                           <select
                             value={editFormData.type}
                             onChange={(e) => setEditFormData(prev => ({ ...prev, type: e.target.value }))}
-                            className="rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1"
+                            className="rounded-md border border-gray-300 bg-white text-gray-900 px-2 py-1"
                           >
                             <option value="">Select a type</option>
                             {contentTypes.map((type, index) => (
@@ -355,7 +355,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                           <select
                             value={editFormData.gradeId}
                             onChange={(e) => setEditFormData(prev => ({ ...prev, gradeId: e.target.value }))}
-                            className="rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1"
+                            className="rounded-md border border-gray-300 bg-white text-gray-900 px-2 py-1"
                           >
                             <option value="">Select a grade</option>
                             <option value="1-5">Primary (Grades 1-5)</option>
@@ -369,7 +369,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                           <select
                             value={editFormData.subGrade || ''}
                             onChange={(e) => setEditFormData(prev => ({ ...prev, subGrade: e.target.value }))}
-                            className="rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-2 py-1"
+                            className="rounded-md border border-gray-300 bg-white text-gray-900 px-2 py-1"
                           >
                             <option value="">None</option>
                             {getSubGradesForGrade(editFormData.gradeId).map((subGrade) => (
@@ -390,7 +390,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                           <Button 
                             variant="outline" 
                             size="sm"
-                            className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="border-gray-300 text-gray-700 hover:bg-gray-100"
                             onClick={handleCancelEdit}
                           >
                             Cancel
@@ -400,16 +400,16 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                     ) : (
                       // Display mode
                       <>
-                        <TableCell className="font-medium text-gray-900 dark:text-white">{resource.title}</TableCell>
-                        <TableCell className="text-gray-700 dark:text-gray-300">{resource.subject}</TableCell>
-                        <TableCell className="text-gray-700 dark:text-gray-300">{resource.type}</TableCell>
-                        <TableCell className="text-gray-700 dark:text-gray-300">{resource.gradeId}</TableCell>
-                        <TableCell className="text-gray-700 dark:text-gray-300">{resource.subGrade || 'None'}</TableCell>
+                        <TableCell className="font-medium text-gray-900">{resource.title}</TableCell>
+                        <TableCell className="text-gray-700">{resource.subject}</TableCell>
+                        <TableCell className="text-gray-700">{resource.type}</TableCell>
+                        <TableCell className="text-gray-700">{resource.gradeId}</TableCell>
+                        <TableCell className="text-gray-700">{resource.subGrade || 'None'}</TableCell>
                         <TableCell>
                           <Button 
                             variant="outline" 
                             size="sm" 
-                            className="mr-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="mr-2 border-gray-300 text-gray-700 hover:bg-gray-100"
                             onClick={() => handleEditClick(resource)}
                           >
                             Edit
@@ -417,7 +417,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
                           <Button 
                             variant="outline" 
                             size="sm" 
-                            className="mr-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="mr-2 border-gray-300 text-gray-700 hover:bg-gray-100"
                             onClick={() => navigator.clipboard.writeText(resource.driveLink)}
                           >
                             Copy Link
@@ -440,7 +440,7 @@ const ResourceManagement = ({ resources, subGrades, formData, setFormData, loadi
           </div>
           
           {filteredResources.length === 0 && (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-gray-500">
               No resources found. {filterGrade || filterSubject ? 'Try clearing the filters.' : 'Add your first resource!'}
             </div>
           )}

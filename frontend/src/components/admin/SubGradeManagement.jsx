@@ -64,21 +64,21 @@ const SubGradeManagement = ({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Sub Grade Management</h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-300">
+        <h1 className="text-3xl font-bold text-gray-900">Sub Grade Management</h1>
+        <p className="mt-2 text-gray-600">
           Create and manage sub grades under each main grade, including display images.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-1 bg-white border border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle>Add New Sub Grade</CardTitle>
+            <CardTitle className="text-gray-900">Add New Sub Grade</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Name
                 </label>
                 <Input
@@ -86,11 +86,12 @@ const SubGradeManagement = ({
                   onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
                   placeholder="e.g. Grade 3"
                   required
+                  className="bg-white border-gray-300"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Parent Grade / Stream
                 </label>
                 <select
@@ -99,7 +100,7 @@ const SubGradeManagement = ({
                     setFormData((prev) => ({ ...prev, gradeId: e.target.value }))
                   }
                   required
-                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full rounded-md border border-gray-300 bg-white text-gray-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   <option value="">Select grade or stream</option>
                   {/* For all grades, show both direct assignment and streams if they exist */}
@@ -133,18 +134,19 @@ const SubGradeManagement = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Image URL
                 </label>
                 <Input
                   value={formData.image}
                   onChange={(e) => setFormData((prev) => ({ ...prev, image: e.target.value }))}
                   placeholder="Optional image link for sub grade card"
+                  className="bg-white border-gray-300"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Display Order
                 </label>
                 <Input
@@ -155,6 +157,7 @@ const SubGradeManagement = ({
                     setFormData((prev) => ({ ...prev, order: Number(e.target.value) || 0 }))
                   }
                   placeholder="e.g. 1, 2, 3..."
+                  className="bg-white border-gray-300"
                 />
               </div>
 
@@ -169,20 +172,20 @@ const SubGradeManagement = ({
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 bg-white border border-gray-200 shadow-sm">
           <CardHeader>
-            <CardTitle>Existing Sub Grades</CardTitle>
+            <CardTitle className="text-gray-900">Existing Sub Grades</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto max-h-96 overflow-y-auto">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Sub Grade</TableHead>
-                    <TableHead>Parent Grade</TableHead>
-                    <TableHead>Order</TableHead>
-                    <TableHead>Image</TableHead>
-                    <TableHead>Actions</TableHead>
+                  <TableRow className="bg-gray-50">
+                    <TableHead className="text-gray-900">Sub Grade</TableHead>
+                    <TableHead className="text-gray-900">Parent Grade</TableHead>
+                    <TableHead className="text-gray-900">Order</TableHead>
+                    <TableHead className="text-gray-900">Image</TableHead>
+                    <TableHead className="text-gray-900">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -191,7 +194,7 @@ const SubGradeManagement = ({
                     const isEditing = editingId === subGrade.id;
 
                     return (
-                      <TableRow key={subGrade.id}>
+                      <TableRow key={subGrade.id} className="bg-white hover:bg-gray-50">
                         {isEditing ? (
                           <>
                             <TableCell>
@@ -200,6 +203,7 @@ const SubGradeManagement = ({
                                 onChange={(e) =>
                                   setEditData((prev) => ({ ...prev, name: e.target.value }))
                                 }
+                                className="bg-white border-gray-300"
                               />
                             </TableCell>
                             <TableCell>
@@ -251,6 +255,7 @@ const SubGradeManagement = ({
                                     order: Number(e.target.value) || 0,
                                   }))
                                 }
+                                className="bg-white border-gray-300"
                               />
                             </TableCell>
                             <TableCell className="max-w-xs">
@@ -260,6 +265,7 @@ const SubGradeManagement = ({
                                   setEditData((prev) => ({ ...prev, image: e.target.value }))
                                 }
                                 placeholder="Image URL"
+                                className="bg-white border-gray-300"
                               />
                             </TableCell>
                             <TableCell>
